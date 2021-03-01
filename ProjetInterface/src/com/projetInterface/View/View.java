@@ -1,13 +1,18 @@
 package com.projetInterface.View;
+ 
 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import com.morpion.Model.*;
 
 @SuppressWarnings("serial")
 public class View extends JFrame implements ActionListener{
@@ -112,12 +117,14 @@ public class View extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==this.boutonJeux) {
 			this.card.show(this.contenu, "panelJeux");
+			
 		}
 		if(e.getSource()==this.boutonUtilisateurs) {
 				this.card.show(this.contenu, "panelUtilisateurs");
 		}
 		if(e.getSource()==this.boutonTemp) {
 			this.card.show(this.contenu, "panelJeu");
+			com.morpion.Model.IHMorpion.AppelJeux();
 		}
 		if(e.getSource()==this.boutonTemp2) {
 			this.card.show(this.contenu, "panelUtilisateur");
