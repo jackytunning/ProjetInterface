@@ -112,7 +112,7 @@ public class View extends JFrame implements ActionListener{
 		this.boutonEx[i]= new JButton("Lancer une partie");
 		this.panelJeu.add(this.boutonEx[i]);
 		i++;
-		this.boutonEx[i]= new JButton("voir les onfos du jeu");
+		this.boutonEx[i]= new JButton("voir les infos du jeu");
 		this.panelJeu.add(this.boutonEx[i] );
 		i++;
 	}
@@ -121,11 +121,11 @@ public class View extends JFrame implements ActionListener{
 		this.utilisateurs= new JPanel();
 		this.utilisateurs.setLayout(new GridLayout(2,3));
 		this.boutonTemp2= new JButton("random user");
-		JButton spiderman = new JButton("nouvel user");
+		JButton boutonTemp3 = new JButton("nouvel user");
 		this.boutonTemp2.addActionListener(this);
 		this.labelUtilisateurs = new JLabel("Utilisateurs");
 		this.utilisateurs.add(labelUtilisateurs);
-		this.utilisateurs.add(spiderman);
+		this.utilisateurs.add(boutonTemp3);
 		this.utilisateurs.add(boutonTemp2);
 	}
 	
