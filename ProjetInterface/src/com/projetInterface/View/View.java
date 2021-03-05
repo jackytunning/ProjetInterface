@@ -17,7 +17,6 @@ public class View extends JFrame implements ActionListener{
 			//boutons menu navigation
 			private JButton boutonJeux;
 			private JButton boutonUtilisateurs;
-			
 		private JPanel menuJeu;
 			//contenu menu en jeu
 		
@@ -25,11 +24,17 @@ public class View extends JFrame implements ActionListener{
 	private JPanel contenu;
 		private CardLayout card;
 		private JPanel panelJeux;
-			private JLabel labelJeux;
+			private Box[] boxJeux;
 			//ajouter les jeux
 		private JPanel panelJeu;
-			//contenu info jeu
 			private JLabel labelJeu;
+			private JButton lancer;
+			private JButton bInfoJeu;
+		private PageInfo panelInfoJeu;
+		private JPanel panelLancerPartie;
+			private JButton bCharger;
+			private JButton bNvPartie;
+			
 		private JPanel utilisateurs;
 			//liste des utilisateurs
 			//tableau?qui contient les utilisateurs(affichage)
@@ -42,7 +47,6 @@ public class View extends JFrame implements ActionListener{
 	//conteneur general
 	private JPanel panel;
 	
-	private JButton boutonTemp;
 	private JButton boutonTemp2;
 	
 	private JButton boutonEx[] = new JButton[10];
@@ -68,6 +72,7 @@ public class View extends JFrame implements ActionListener{
 			this.getContentPane().setBackground(new Color(245, 222, 179));
 			this.setBounds(100, 100, 1280, 800);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setAlwaysOnTop(true);
 			this.setTitle("interface");
 			this.setResizable(false);
 			this.setLocationRelativeTo(null);
@@ -96,25 +101,43 @@ public class View extends JFrame implements ActionListener{
 		
 	}
 	private void initPanelJeux() {
-		this.boutonTemp= new JButton("Random Jeu");
-		this.boutonTemp.addActionListener(this);
 		this.panelJeux= new JPanel();
-		this.labelJeux = new JLabel("Jeux");
+		int i;
+		Box boite[];
+		this.boxJeux = new Box[6];
+		for(i=0;i<6;i++) {
+			this.boxJeux[i]= new Box(String.valueOf(i));
+			this.boxJeux[i].addActionListener(this);
+			this.panelJeux.add(this.boxJeux[i]);
+			
+		}
 		this.panelJeux.setLayout(new GridLayout(2,3));
-		this.panelJeux.add(labelJeux);
-		this.panelJeux.add(boutonTemp);
 	}
 	
 	private void initPanelJeu() {
 		this.panelJeu = new JPanel();
 		this.labelJeu = new JLabel("Jeu");
 		this.panelJeu.add(labelJeu);
-		this.boutonEx[i]= new JButton("Lancer une partie");
-		this.panelJeu.add(this.boutonEx[i]);
-		i++;
-		this.boutonEx[i]= new JButton("voir les infos du jeu");
-		this.panelJeu.add(this.boutonEx[i] );
-		i++;
+		this.lancer= new JButton("Lancer une partie");
+		this.lancer.addActionListener(this);
+		this.panelJeu.add(this.lancer);
+		this.bInfoJeu= new JButton("Voir les infos du jeu");
+		this.bInfoJeu.addActionListener(this);
+		this.panelJeu.add(this.bInfoJeu );
+	}
+	
+	private void initPanelInfoJeu() {
+		this.panelInfoJeu= new PageInfo("jeu",this);
+		
+	}
+	private void initLancerPartie() {
+		this.panelLancerPartie = new JPanel();
+		this.panelLancerPartie.setLayout(new BoxLayout(this.panelLancerPartie,BoxLayout.Y_AXIS));
+		this.bCharger = new JButton("Charger une partie");
+		this.bNvPartie = new JButton("Lancer une nouvelle partie");
+		this.panelLancerPartie.add(this.bNvPartie);
+		this.panelLancerPartie.add(this.bCharger);
+		this.panelLancerPartie.add(this.panelInfoJeu.retour);
 	}
 	
 	private void initPanelUtilisateurs() {
@@ -142,6 +165,8 @@ public class View extends JFrame implements ActionListener{
 		this.initPanelJeu();
 		this.initPanelJeux();
 		this.initPanelUtilisateur();
+		this.initPanelInfoJeu();
+		this.initLancerPartie();
 		this.contenu.setBounds(290,0,980,800);
 		this.card = new CardLayout();
 		this.contenu.setLayout(card);
@@ -149,10 +174,14 @@ public class View extends JFrame implements ActionListener{
 		this.card.addLayoutComponent(this.panelJeu,"panelJeu");
 		this.card.addLayoutComponent(this.utilisateur,"panelUtilisateur");
 		this.card.addLayoutComponent(this.utilisateurs,"panelUtilisateurs");
+		this.card.addLayoutComponent(this.panelInfoJeu, "panelInfoJeu");
+		this.card.addLayoutComponent(this.panelLancerPartie,"panelLancerPartie");
 		this.contenu.add(this.panelJeux);
 		this.contenu.add(this.panelJeu);
+		this.contenu.add(this.panelInfoJeu);
 		this.contenu.add(this.utilisateur);
 		this.contenu.add(this.utilisateurs);
+		this.contenu.add(this.panelLancerPartie);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -162,12 +191,24 @@ public class View extends JFrame implements ActionListener{
 		if(e.getSource()==this.boutonUtilisateurs) {
 				this.card.show(this.contenu, "panelUtilisateurs");
 		}
-		if(e.getSource()==this.boutonTemp) {
+		if(e.getSource()==this.boxJeux[0]) {
 			this.card.show(this.contenu, "panelJeu");
+		}
+		if(e.getSource()==this.bInfoJeu) {
+			this.panelInfoJeu.add(this.panelInfoJeu.retour);
+			this.card.show(this.contenu, "panelInfoJeu");
 		}
 		if(e.getSource()==this.boutonTemp2) {
 			this.card.show(this.contenu, "panelUtilisateur");
 		}
+		if(e.getSource()==this.lancer) {
+			this.panelLancerPartie.add(this.panelInfoJeu.retour);
+			this.card.show(this.contenu, "panelLancerPartie");
+		}
+		if(e.getSource()==this.panelInfoJeu.retour) {
+			this.card.show(this.contenu, "panelJeu");
+		}
+		
 		
 	}
 }
