@@ -1,28 +1,30 @@
 package com.projetInterface.View;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PageInfo extends JPanel {
+public class PageInfo extends JPanel implements I_View {
 	private JLabel titre;
 	private JLabel nbJoue;
 	private JLabel nbTerm;
 	private JLabel nbAbd;
 	private JLabel hScores;
-	protected JButton retour;
+	public JButton retour;
 	
-	protected PageInfo(String s,View v) {
+	protected PageInfo(String s,ActionListener a) {
 		super();
 			this.titre = new JLabel(s);
 			this.retour = new JButton("retour");
-			this.retour.addActionListener(v);
+			this.retour.addActionListener(a);
 			
-		this.initInfos();
+		this.init();
 		
 	}
-	protected void initInfos() {
+	protected void init() {
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.nbJoue = new JLabel("0 joue");
 		this.nbTerm = new JLabel("0 termine");

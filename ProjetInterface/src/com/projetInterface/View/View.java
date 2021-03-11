@@ -10,19 +10,18 @@ import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class View extends JFrame implements ActionListener{
+public class View extends JFrame{
 	//conteneur des menus
-	private JPanel menus;
-		private JPanel menuNav;
+//	private JPanel menus;
 			//boutons menu navigation
-			private JButton boutonJeux;
-			private JButton boutonUtilisateurs;
-		private JPanel menuJeu;
+			//private JButton boutonJeux;
+		//	private JButton boutonUtilisateurs;
+	//	private JPanel menuJeu;
 			//contenu menu en jeu
 		
 	//conteneur de toutes les pages
-	private JPanel contenu;
-		private CardLayout card;
+	/*private JPanel contenu;
+		public CardLayout card;
 		private JPanel panelJeux;
 			private Box[] boxJeux;
 			//ajouter les jeux
@@ -42,52 +41,50 @@ public class View extends JFrame implements ActionListener{
 		private JPanel utilisateur;
 			private JLabel labelUtilisateur;
 			//infos de l'utilsateur
+			 * 
+			 */
 	
 		
 	//conteneur general
 	private JPanel panel;
-	
-	private JButton boutonTemp2;
-	
-	private JButton boutonEx[] = new JButton[10];
-	private int i=0;
-	
-	
+	private Menu menu;
+	Navigation nav;
 	
 	
 	
 	
 	public View() {
 		super();
+		this.menu = new Menu(this);
 		setFont(new Font("Comic Sans MS", Font.ITALIC, 12));
-		initialize();
+		init();
 		
 	}
 	public JFrame getFrame() {
 		return this;
 	}
 	
-	private void initialize() {
+	private void init() {
 			this.getContentPane().setFont(new Font("Segoe Script", Font.BOLD | Font.ITALIC, 17));
 			this.getContentPane().setBackground(new Color(245, 222, 179));
 			this.setBounds(100, 100, 1280, 800);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setAlwaysOnTop(true);
-			this.setTitle("interface");
+			this.setTitle("interface jeux 2 joueurs");
 			this.setResizable(false);
 			this.setLocationRelativeTo(null);
-			this.initMenu();
-			this.initContenu();
+			this.nav = new Navigation();
+			this.menu = new Menu(this);
 			panel = new JPanel();
 			panel.setSize(new Dimension(1280, 800));
 			panel.setLayout(null);
 			panel.setOpaque(false);
-			panel.add(menus);
-			panel.add(contenu);
+			panel.add(nav);
+			panel.add(menu);
 			this.getContentPane().add(panel);
 	}
 	//initialise les menus (en jeu, navigation et les regroupe dans leur conteneur)
-	private void initMenu() {
+	/*private void initMenu() {
 		this.boutonJeux= new JButton("Jeux");
 		this.boutonJeux.addActionListener(this);
 		this.boutonUtilisateurs= new JButton("Utilisateurs");
@@ -99,8 +96,8 @@ public class View extends JFrame implements ActionListener{
 		this.menus.add(boutonJeux);
 		this.menus.add(boutonUtilisateurs);
 		
-	}
-	private void initPanelJeux() {
+	}*/
+	/*private void initPanelJeux() {
 		this.panelJeux= new JPanel();
 		int i;
 		Box boite[];
@@ -182,33 +179,9 @@ public class View extends JFrame implements ActionListener{
 		this.contenu.add(this.utilisateur);
 		this.contenu.add(this.utilisateurs);
 		this.contenu.add(this.panelLancerPartie);
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==this.boutonJeux) {
-			this.card.show(this.contenu, "panelJeux");
-		}
-		if(e.getSource()==this.boutonUtilisateurs) {
-				this.card.show(this.contenu, "panelUtilisateurs");
-		}
-		if(e.getSource()==this.boxJeux[0]) {
-			this.card.show(this.contenu, "panelJeu");
-		}
-		if(e.getSource()==this.bInfoJeu) {
-			this.panelInfoJeu.add(this.panelInfoJeu.retour);
-			this.card.show(this.contenu, "panelInfoJeu");
-		}
-		if(e.getSource()==this.boutonTemp2) {
-			this.card.show(this.contenu, "panelUtilisateur");
-		}
-		if(e.getSource()==this.lancer) {
-			this.panelLancerPartie.add(this.panelInfoJeu.retour);
-			this.card.show(this.contenu, "panelLancerPartie");
-		}
-		if(e.getSource()==this.panelInfoJeu.retour) {
-			this.card.show(this.contenu, "panelJeu");
-		}
+	}*/
+	
 		
 		
 	}
-}
+
